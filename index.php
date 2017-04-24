@@ -29,7 +29,6 @@ session_start();
 	  <script>document.body.className += ' fade-out';</script>
 <!-- // <script>document.body.className += ' fade-out';</script>	   -->
 <!-- Stack the columns on mobile by making one full-width and the other half-width -->
-<!-- INTERESSANTE --->
 <div class="row centered">
 	 <div class="col-xs-12 col-md-12">
 	 
