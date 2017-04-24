@@ -19,8 +19,8 @@
 
 
 
-	var urlCall = "http://localhost/pvp/class/ajaxController.php";
-	var urlRedirect = "http://localhost/pvp/files";
+	var urlCall = "http://localhost/pvp/pvp/class/ajaxController.php";
+	var urlRedirect = "http://localhost/pvp/pvp/files";
 			
 		$( ".exec" ).on('click tap', function(event) {
 				
@@ -102,7 +102,9 @@
 			    success: function(responseData, textStatus, jqXHR) {
 					
 			        $("#telaio").html(responseData);
-					$('.telaio').selectpicker("refresh");			
+					$('.telaio').selectpicker("refresh");
+					$('.dimensione').selectpicker("refresh");
+		
 			  }, 
 			      error: function (responseData, textStatus, errorThrown) {
 							        	console.log(textStatus +' : '+ errorThrown);
@@ -198,6 +200,8 @@
             $(document).on("change", "#select_step_1_tamponamento", function () {
 				
 			var dimensione_telaio = $(this).find("option:selected").val();
+			
+			console.log(dimensione_telaio);
 			
 			if (dimensione_telaio == 'si'){
 			

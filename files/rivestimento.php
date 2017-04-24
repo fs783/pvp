@@ -4,6 +4,10 @@ require_once '../class/main.pvp.php';
 $pvp = new PVP();
 
 echo $pvp->step1();
+
+	echo '<pre>'; 
+	var_dump($_SESSION);
+	echo '</pre>';
 ?>
 <!DOCTYPE html>
 <html lang="en">

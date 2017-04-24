@@ -3,7 +3,7 @@
 Tipologia: Calsse Main PVP
 Autore: Fabio Simi
 Data inizio: 18/04/2017 - 16:54
-Ultima modifica:  20/04/2017 - 20:11
+Ultima modifica:  24/04/2017 - 16:34
 **************************************/
 
 class PVP {
@@ -17,13 +17,13 @@ class PVP {
 		
 		public $modello = ''; //verrà settato al primo utilizzo
 
-		public $id_sessione = '';
+		public $id_sessione = ''; 
 		
-		protected $host = 'localhost';
+		protected $host = 'localhost'; 
 		
 		public $dbtable = 'POOLS-CONFIGURATORE';
 		
-		public $url = 'http://localhost/pvp/files';
+		public $url = 'http://localhost/pvp/pvp/files';
 		
 		//protected $dbuser = 'c0pools';
 		
@@ -164,6 +164,10 @@ class PVP {
 				//SELEZIONO I TELAI
    				$q = $db->query("select distinct scelta_primaria from configuratore_$modello WHERE step=1 AND altezza ='$valore' ");
    				
+   				
+  				
+   				if ($modello == 'design')
+   				{
    				 echo '
    				<br />
    				<h3>TELAIO</H3>
@@ -176,6 +180,24 @@ class PVP {
 			    }		   
 			    
 			    echo '</select>'; 
+			    
+			    } else {
+				    
+				 echo '
+				 <br />
+   				 <h3>DIMENSIONE</H3>
+   				<select id="select_step_1_dimensione" class="dimensione show-tick">
+   				<option>Seleziona Dimensione</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_primaria.'">' .$obj->scelta_primaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+
+				    
+			    }
 				
 				/* free result set */
 				$db->close();
@@ -243,8 +265,17 @@ class PVP {
 		
 				// INSERISCO IL PREZZO IN BASE ALLA SCELTA	
 		
-		$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_secondaria='$valore' AND step = '1' AND altezza = '$altezza' AND scelta_primaria = '$telaio')WHERE step=1 AND scelta_secondaria = '$valore' AND id_sessione='$token' ");
-		
+					if ($modello == 'design')
+					{
+					
+					$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_secondaria='$valore' AND step = '1' AND altezza = '$altezza' AND scelta_primaria = '$telaio')WHERE step=1 AND scelta_secondaria = '$valore' AND id_sessione='$token' ");
+					
+					} else 	{
+						
+					$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$valore' AND step = '1' AND altezza = '$altezza')WHERE step=1 AND scelta_secondaria = '$valore' AND id_sessione='$token' ");
+								
+					}
+					
 				
 				 echo '
 				 <br />
@@ -279,8 +310,24 @@ class PVP {
 				
 				$dimensione = $_SESSION["step1"]['dimensione'];
 				
-				//AGGIORNO IL RECORD SUL DATABASE GIÀ PRESENTE				
+				//AGGIORNO IL RECORD SUL DATABASE GIÀ PRESENTE		
+				
+				
+				if ($modello == 'design')
+				{
+						
 				$q = $db->query("UPDATE $this->riepilogo SET scelta_opzionale=(SELECT scelta_opzionale FROM configuratore_$modello WHERE scelta_secondaria='$dimensione' AND step = '1' AND altezza = '$altezza' AND scelta_primaria = '$telaio') WHERE step=1 AND scelta_secondaria = '$dimensione' AND id_sessione='$token' ");
+
+				echo "UPDATE $this->riepilogo SET scelta_opzionale=(SELECT scelta_opzionale FROM configuratore_$modello WHERE scelta_secondaria='$dimensione' AND step = '1' AND altezza = '$altezza' AND scelta_primaria = '$telaio') WHERE step=1 AND scelta_secondaria = '$dimensione' AND id_sessione='$token' ";
+				
+				} else 	{
+				
+				$q = $db->query("UPDATE $this->riepilogo SET scelta_opzionale=(SELECT scelta_opzionale FROM configuratore_$modello WHERE scelta_primaria='$dimensione' AND step = '1' AND altezza = '$altezza') WHERE step=1 AND scelta_secondaria = '$dimensione' AND id_sessione='$token' ");
+				
+				echo "UPDATE $this->riepilogo SET scelta_opzionale=(SELECT scelta_opzionale FROM configuratore_$modello WHERE scelta_primaria='$dimensione' AND step = '1' AND altezza = '$altezza') WHERE step=1 AND scelta_secondaria = '$dimensione' AND id_sessione='$token' ";
+				
+				}
+exit();
 
 				$db->close();
 				

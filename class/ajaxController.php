@@ -45,7 +45,7 @@ require_once 'main.pvp.php';
 					break;
 					
 					case '1-tamponamento':
-					echo $pvp->step1_optional($valore);
+					echo $pvp->step1_optional();
 					break;
 					  
 				    default:
