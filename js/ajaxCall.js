@@ -16,7 +16,9 @@
 			});
 			
 
-
+	$('.step2-init').selectpicker({
+			   size: 4
+			});
 
 
 	var urlCall = "http://localhost/pvp/pvp/class/ajaxController.php";
@@ -253,8 +255,63 @@
 			});
 		
 		
+		/*		INIZIO STEP 2		*/
+	
 		
+		 $(document).on("change", "#select_step_2", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+			
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + valore + '&step=2',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+							
+				    $("#rivestimento").html(responseData);
+					$('.dimensione-2').selectpicker("refresh");			
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					alert(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step1_dimensione
 
+		
+		$(document).on("change", "#select_step_2_dimensione", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + valore + '&step=2-insert',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+							
+/*
+				    $("#rivestimento").html(responseData);
+					$('.dimensione-2').selectpicker("refresh");			
+*/
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					alert(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step1_dimensione
+	
+	
 	
 	
 	}); //end ready jQuery

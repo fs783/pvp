@@ -1,6 +1,7 @@
 body {
     opacity: 1;
     transition: 1s opacity;
+    font-family: 'PT Sans', sans-serif;
 }
 body.fade-out {
     opacity: 0;
@@ -36,11 +37,24 @@ body.fade-out {
 	color: #fff;
 }
 
+.body-rivestimento	{
+	background-color: #7e8d86;
+	color: #fff;
+}
+.footer p {
+	margin: 0 0 2px !important;
+}
 .footer {
 	position: absolute;
-bottom: 10%
+	bottom: 10%;
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
   }
   
+  .footer .totale	{
+	  font-size: 25px;
+  }
   
  .select-style {
     border: 1px solid #ccc;

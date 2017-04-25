@@ -79,7 +79,7 @@ class PVP {
 				
 				$token =  uniqid('pvp_'); // id univoco assegnato alla singola richiesta (cosa da veri professionisti!)
 								
-				$q = $db->query("INSERT INTO $this->riepilogo (step, valore, id_sessione, data) VALUES ('home', '$nome', '$token', NOW())");
+				$q = $db->query("INSERT INTO $this->riepilogo (step, modello, id_sessione, data) VALUES ('home', '$nome', '$token', NOW())");
 				
 				/* free result set */
 				$db->close();
@@ -150,7 +150,7 @@ class PVP {
 				
 				if ($row == 0)
 				{
-					$q = $db->query("INSERT into $this->riepilogo (step, valore, id_sessione, data, altezza) VALUES ('1', '$modello', '$token', NOW(), '$valore') ");
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza) VALUES ('1', '$modello', '$token', NOW(), '$valore') ");
 					
 					$_SESSION["step1"]['altezza'] = $valore;
 				}
@@ -310,24 +310,21 @@ class PVP {
 				
 				$dimensione = $_SESSION["step1"]['dimensione'];
 				
+				
 				//AGGIORNO IL RECORD SUL DATABASE GIÀ PRESENTE		
-				
-				
+								
 				if ($modello == 'design')
 				{
 						
 				$q = $db->query("UPDATE $this->riepilogo SET scelta_opzionale=(SELECT scelta_opzionale FROM configuratore_$modello WHERE scelta_secondaria='$dimensione' AND step = '1' AND altezza = '$altezza' AND scelta_primaria = '$telaio') WHERE step=1 AND scelta_secondaria = '$dimensione' AND id_sessione='$token' ");
 
-				echo "UPDATE $this->riepilogo SET scelta_opzionale=(SELECT scelta_opzionale FROM configuratore_$modello WHERE scelta_secondaria='$dimensione' AND step = '1' AND altezza = '$altezza' AND scelta_primaria = '$telaio') WHERE step=1 AND scelta_secondaria = '$dimensione' AND id_sessione='$token' ";
 				
 				} else 	{
 				
 				$q = $db->query("UPDATE $this->riepilogo SET scelta_opzionale=(SELECT scelta_opzionale FROM configuratore_$modello WHERE scelta_primaria='$dimensione' AND step = '1' AND altezza = '$altezza') WHERE step=1 AND scelta_secondaria = '$dimensione' AND id_sessione='$token' ");
-				
-				echo "UPDATE $this->riepilogo SET scelta_opzionale=(SELECT scelta_opzionale FROM configuratore_$modello WHERE scelta_primaria='$dimensione' AND step = '1' AND altezza = '$altezza') WHERE step=1 AND scelta_secondaria = '$dimensione' AND id_sessione='$token' ";
-				
+								
 				}
-exit();
+
 
 				$db->close();
 				
@@ -335,7 +332,163 @@ exit();
 								
 				
 			}
+			
+			public function step2(){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+							
+				// ESEGUO UN CONTROLLO DI INTEGRITA' TRA SESSIONE E DATABASE
+				
+				$q = $db->query("SELECT id_sessione, altezza FROM $this->riepilogo WHERE id_sessione='$token' AND altezza='$altezza' ");
 
+				$row = $q->num_rows;
+				
+				if ($row == '0'){
+					
+					echo '<div class="alert alert-danger" role="alert">ERRORE NEL CONTROLLO DEI DATI. INIZIARE UNA NUOVA CONFIGURAZIONE!</div>';
+					
+					exit();
+				} 
+				
+				// FINE CONTROLLO
+				
+				
+				$q = $db->query("SELECT DISTINCT scelta_primaria FROM configuratore_$modello WHERE step=2 AND altezza ='$altezza' ");
+   				
+   				
+   				echo '
+   				<select id="select_step_2" class="step2-init show-tick">
+   				<option>Seleziona Rivestimento Esterno</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_primaria.'">' .$obj->scelta_primaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+				
+				/* free result set */
+				$db->close();
+
+						
+				
+			} //end step2
+			
+			
+			public function step2_dimensione($scelta_primaria){
+				
+				
+				//INSERISCO IL VALORE PRECEDENTE E SELEZIONO I NUOVI
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				
+				$q = $db->query("SELECT step, id_sessione, altezza FROM $this->riepilogo WHERE  id_sessione = '$token' and step='2' ");
+							
+				$row = $q->num_rows;
+				
+														
+				if ($row == 0)
+				{
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria) VALUES ('2', '$modello', '$token', NOW(), '$altezza', '$scelta_primaria')");
+					
+					$_SESSION["step2"]['rivestimento'] = $scelta_primaria;
+				}
+								
+				else {
+					$q = $db->query("UPDATE $this->riepilogo SET scelta_primaria='$scelta_primaria' WHERE id_sessione = '$token' and step = '2' ");
+
+					$_SESSION["step2"]['rivestimento'] = $scelta_primaria;
+				}
+
+
+				//mostro seconda select
+				
+				//SELEZIONO I TELAI
+   				$q = $db->query("select scelta_secondaria from configuratore_$modello WHERE step='2' AND altezza ='$altezza' AND scelta_primaria ='$scelta_primaria' ");
+   				
+				
+				 echo '
+   				<br />
+   				<h3>DIMENSIONE</H3>
+   				<select id="select_step_2_dimensione" class="dimensione-2 show-tick">
+   				<option>Seleziona Dimensione</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_secondaria.'">' .$obj->scelta_secondaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+
+				
+				
+			} //end step2_dimensione
+
+
+
+			public function step2_insert($scelta_secondaria){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				$scelta_primaria = $_SESSION["step2"]['rivestimento'];
+				
+				//AGGIORNO SEMPRE IL RECORD ESISTENTE
+				
+				$q = $db->query("UPDATE $this->riepilogo SET scelta_secondaria='$scelta_secondaria' WHERE id_sessione = '$token' and step = '2' AND scelta_primaria='$scelta_primaria' ");
+				
+				// inserisco il prezzo				
+				$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$scelta_primaria' AND step = '2' AND altezza = '$altezza' AND scelta_secondaria='$scelta_secondaria') WHERE step=2 AND scelta_primaria = '$scelta_primaria' AND id_sessione='$token' ");
+				
+				//METTO UN CONTROLLO SULLA QUERY
+				
+				if ($db->error) {
+						    try {    
+						        throw new Exception("MySQL error $db->error <br> Query:<br> $q", $db->errno);    
+						    } catch(Exception $e ) {
+						        echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+						        echo nl2br($e->getTraceAsString());
+						    }
+						    exit();
+						}	
+
+				
+				
+			}
+			
+
+			public function calcoloTotale()	{
+				
+				$db = $this->db_connect();
+				
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				$q = $db->query("SELECT (SUM(prezzo)+SUM(scelta_opzionale)) AS totale FROM riepilogo_configuratore WHERE id_sessione='$token' ");
+				
+			    $obj = $q->fetch_object();
+
+				
+				return '&euro; ' . number_format($obj->totale, 2, ',', '.');
+
+			}  //end calcolo
 	
 		
 	

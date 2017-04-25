@@ -3,11 +3,6 @@ session_start();
 require_once '../class/main.pvp.php';
 $pvp = new PVP();
 
-echo $pvp->step1();
-
-	echo '<pre>'; 
-	var_dump($_SESSION);
-	echo '</pre>';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +21,7 @@ echo $pvp->step1();
     	    <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,26 +30,26 @@ echo $pvp->step1();
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="body-struttura">
+  <body class="body-rivestimento">
 <script>document.body.className += ' fade-out';</script>
 <!-- 	  <script>document.body.className += ' fade-out';</script> -->
 <!-- Stack the columns on mobile by making one full-width and the other half-width -->
 <div class="row ">
 	 <div class="col-xs-12 col-md-12 center-page">
 	 <h4>PrimaVeraPool</h4>
-	 <h3>STRUTTURA</h3>
+	 <h3>RIVESTIMENTO ESTERNO</h3>
 	 <br />
-		<select class="selectpicker">
-		  <option>Mustard</option>
-		  <option>Ketchup</option>
-		  <option>Relish</option>
-		</select>
+
+	 <?php echo $pvp->step2() ?>
+
+	 <div id="rivestimento"></div>
 
   </div>
 </div>
 
 <div class="footer">
-  <a href="#">Fixed bottom</a>
+<p>Prezzo attuale</p>
+<span class="totale"><?php echo $pvp->calcoloTotale(); ?></span>
 </div>
 
 

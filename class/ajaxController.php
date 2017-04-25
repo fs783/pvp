@@ -47,6 +47,14 @@ require_once 'main.pvp.php';
 					case '1-tamponamento':
 					echo $pvp->step1_optional();
 					break;
+					
+					case '2':
+					echo $pvp->step2_dimensione($valore);
+					break;
+					
+					case '2-insert':
+					echo $pvp->step2_insert($valore);
+					break;
 					  
 				    default:
 				    echo 'nessun metodo valido è stato trovato per l\'opzione: ' . $valore . ' nello step: ' . $step;

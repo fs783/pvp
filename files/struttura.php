@@ -51,7 +51,7 @@ $pvp = new PVP();
 </div>
 
 <div class="footer">
-  <a href="#">Fixed bottom</a>
+
 </div>
 
 
