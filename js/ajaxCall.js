@@ -3,7 +3,8 @@
 		
 
 			$(function() {
-				    $('body').removeClass('fade-out');
+			
+			$('body').removeClass('fade-out');
 				});	
 			
 			$('.selectpicker').selectpicker({
@@ -16,8 +17,12 @@
 			});
 			
 
-	$('.step2-init').selectpicker({
-			   size: 4
+			$('.step2-init').selectpicker({
+					   size: 4
+					});
+			
+			$('.step3-init').selectpicker({
+			   size: 8
 			});
 
 

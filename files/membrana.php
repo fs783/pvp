@@ -30,27 +30,25 @@ $pvp = new PVP();
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="body-rivestimento">
+  <body class="body-membrana">
 <script>document.body.className += ' fade-out';</script>
 <!-- 	  <script>document.body.className += ' fade-out';</script> -->
 <!-- Stack the columns on mobile by making one full-width and the other half-width -->
 <div class="row ">
 	 <div class="col-xs-12 col-md-12 center-page">
 	 <h4>PrimaVeraPool</h4>
-	 <h3>RIVESTIMENTO ESTERNO</h3>
+	 <h3>MEMBRANA INTERNA</h3>
 	 <br />
 
-	 <?php echo $pvp->step2() ?>
-
-	 <div id="rivestimento"></div>
+	 <?php $pvp->step3(); ?>
 
   </div>
 </div>
 
-<div class="footer">
-<p>Prezzo attuale</p>
-<span class="totale"><?php echo $pvp->calcoloTotale(); ?></span>
-
+	<div class="footer">
+	<p>Prezzo attuale</p>
+	<span class="totale"><?php echo $pvp->calcoloTotale(); ?></span>
+	
 		<div id="menu-bar">
 		
 			<div class="menu-bar-item">
@@ -64,10 +62,7 @@ $pvp = new PVP();
 			</div>
 	
 		</div> <!-- /menu bar -->
-
-
-
-</div>
+	</div> <!-- / footer -->
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -41,6 +41,12 @@ body.fade-out {
 	background-color: #7e8d86;
 	color: #fff;
 }
+
+.body-membrana	{
+	background-color: #3d6f72;
+	color: #fff;
+}
+
 .footer p {
 	margin: 0 0 2px !important;
 }
@@ -77,3 +83,9 @@ body.fade-out {
 .select-style select:focus {
     outline: none;
 } 
+
+.menu-bar-item	{
+	width: 30%;
+	display: inline-block;
+	margin-top: 25px;
+}
