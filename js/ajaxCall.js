@@ -4,26 +4,17 @@
 
 			$(function() {
 			
-			$('body').removeClass('fade-out');
-				});	
+				$('body').removeClass('fade-out');
 			
-			$('.selectpicker').selectpicker({
-			   size: 4
-			});
+			});	
 			
-		
-			$('.telaio').selectpicker({
-			   size: 4
-			});
+			$('.selectpicker').selectpicker();
+					
+			$('.telaio').selectpicker();
 			
-
-			$('.step2-init').selectpicker({
-					   size: 4
-					});
+			$('.step2-init').selectpicker();
 			
-			$('.step3-init').selectpicker({
-			   size: 8
-			});
+			$('.step3-init').selectpicker();
 
 
 	var urlCall = "http://localhost/pvp/pvp/class/ajaxController.php";
@@ -277,7 +268,7 @@
 				success: function(responseData, textStatus, jqXHR) {
 							
 				    $("#rivestimento").html(responseData);
-					$('.dimensione-2').selectpicker("refresh");			
+					$('.dimensione-2').selectpicker("refresh");
 				}, 
 				error: function (responseData, textStatus, errorThrown) {
 					alert(textStatus +' : '+ errorThrown);
@@ -285,7 +276,7 @@
 						
 			});    //end ajax call
         
-        });  // end step1_dimensione
+        });  // end step2
 
 		
 		$(document).on("change", "#select_step_2_dimensione", function () {
@@ -302,11 +293,40 @@
 				dataType: 'text',
 					    
 				success: function(responseData, textStatus, jqXHR) {
+
+				calcolaTotale();
+
+			    location.href = urlRedirect+'/membrana.php';
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step1_dimensione
+        
+        
+        
+        //STEP 3
+        
+        $(document).on("change", "#select_step_3", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+	        
+	        console.log(valore);
+			
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + valore + '&step=3',
+				 type: 'POST',
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
 							
-/*
-				    $("#rivestimento").html(responseData);
-					$('.dimensione-2').selectpicker("refresh");			
-*/
+				    $("#dimensione-3").html(responseData);
+					$('.dimensione-3').selectpicker("refresh");
 				}, 
 				error: function (responseData, textStatus, errorThrown) {
 					alert(textStatus +' : '+ errorThrown);
@@ -314,8 +334,70 @@
 						
 			});    //end ajax call
         
+        });  // end step3_dimensione
+
+        
+        $(document).on("change", "#step_3_dimensione", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + valore + '&step=3-insert',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				calcolaTotale();
+
+			   // location.href = urlRedirect+'/dotazioni.php';
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
         });  // end step1_dimensione
+
+        
+        
+        //FOOTER FUNCTION
+        
+        $("#torna-indietro").click(function(event){
+	    
+	    	event.preventDefault();
+			history.back(1);
+       
+        });
 	
+	
+			function calcolaTotale()	{
+				
+				$.ajax({
+				 url: urlCall,
+				 data: 'step=calcolaTotale&valore=0',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+				
+				$('.totale').html(responseData);
+
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+				
+			}
 	
 	
 	

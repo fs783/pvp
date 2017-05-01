@@ -54,21 +54,18 @@ $pvp = new PVP();
 		<div id="menu-bar">
 		
 			<div class="menu-bar-item">
-				<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></a>
+<!-- 				<a href="#" class="btn btn-default" id="torna-indietro"><span class="glyphicon glyphicon-chevron-left"></span></a> -->
 			</div>
 			<div class="menu-bar-item">
-				<a href="#" class="btn btn-primary">SALTA OPZIONE</a>
+				<a href="#" class="btn btn-primary" id="salta-opzione">SALTA OPZIONE</a>
 			</div>
 			<div class="menu-bar-item">
-				<a href="#" class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span></a>
+				<a href="#" class="btn btn-warning" id="nuova-configurazione"><span class="glyphicon glyphicon-plus"></span></a>
 			</div>
 	
 		</div> <!-- /menu bar -->
 
-
-
 </div>
-
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

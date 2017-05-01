@@ -28,6 +28,10 @@ require_once 'main.pvp.php';
 				
 				switch ($step) {
 					
+					case 'calcolaTotale':
+ 					echo $pvp->calcoloTotale();			
+					break;
+					
 					case 'home':
  					echo $pvp->inizioConfigurazione($valore);			
 					break;
@@ -45,7 +49,7 @@ require_once 'main.pvp.php';
 					break;
 					
 					case '1-tamponamento':
-					echo $pvp->step1_optional();
+					echo $pvp->step1_optional($valore);
 					break;
 					
 					case '2':
@@ -54,6 +58,14 @@ require_once 'main.pvp.php';
 					
 					case '2-insert':
 					echo $pvp->step2_insert($valore);
+					break;
+					
+					case '3':
+					echo $pvp->step3_dimensione($valore);
+					break;
+					
+					case '3-insert':
+					echo $pvp->step3_insert($valore);
 					break;
 					  
 				    default:

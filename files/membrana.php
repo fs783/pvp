@@ -41,28 +41,14 @@ $pvp = new PVP();
 	 <br />
 
 	 <?php $pvp->step3(); ?>
+	 
+ 	 <div id="dimensione-3"></div>
+
 
   </div>
 </div>
 
-	<div class="footer">
-	<p>Prezzo attuale</p>
-	<span class="totale"><?php echo $pvp->calcoloTotale(); ?></span>
-	
-		<div id="menu-bar">
-		
-			<div class="menu-bar-item">
-				<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></a>
-			</div>
-			<div class="menu-bar-item">
-				<a href="#" class="btn btn-primary">SALTA OPZIONE</a>
-			</div>
-			<div class="menu-bar-item">
-				<a href="#" class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span></a>
-			</div>
-	
-		</div> <!-- /menu bar -->
-	</div> <!-- / footer -->
+<?php include_once "footer.php" ?>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
