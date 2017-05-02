@@ -20,8 +20,8 @@ require_once 'main.pvp.php';
 
 	$step = $_POST['step'];
 	$valore = $_POST['valore'];
-
-
+	
+	
 			function main($step, $valore)	{
 				
 				global $pvp;
@@ -67,6 +67,23 @@ require_once 'main.pvp.php';
 					case '3-insert':
 					echo $pvp->step3_insert($valore);
 					break;
+					 
+					case '4':
+					echo $pvp->step4_dimensione($valore);
+					break;
+					
+					case '4-extra':
+					echo $pvp->step4_extra($valore);
+					break;
+					
+					case '4-dimensioni':
+					echo $pvp->step4_extra2($valore);
+					break;
+					
+					case '4-final':
+					echo $pvp->step4_final($valore);
+					break;
+
 					  
 				    default:
 				    echo 'nessun metodo valido è stato trovato per l\'opzione: ' . $valore . ' nello step: ' . $step;

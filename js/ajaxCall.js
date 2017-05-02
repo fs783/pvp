@@ -9,12 +9,22 @@
 			});	
 			
 			$('.selectpicker').selectpicker();
+			
+			$('.step_4_optional').selectpicker();
 					
 			$('.telaio').selectpicker();
 			
 			$('.step2-init').selectpicker();
 			
 			$('.step3-init').selectpicker();
+
+			$('.step4-init').selectpicker();
+			$('.step5-init').selectpicker();
+			$('.step6-init').selectpicker();
+			$('.step7-init').selectpicker();
+			$('.step8-init').selectpicker();
+			$('.step9-init').selectpicker();
+
 
 
 	var urlCall = "http://localhost/pvp/pvp/class/ajaxController.php";
@@ -283,8 +293,7 @@
 	        
 	        var valore = $(this).find("option:selected").val();
 
-			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
-								
+							
 			$.ajax({
 				 url: urlCall,
 				 data: 'valore=' + valore + '&step=2-insert',
@@ -354,7 +363,7 @@
 
 				calcolaTotale();
 
-			   // location.href = urlRedirect+'/dotazioni.php';
+			   location.href = urlRedirect+'/dotazioni.php';
 				
 				}, 
 				error: function (responseData, textStatus, errorThrown) {
@@ -363,7 +372,117 @@
 						
 			});    //end ajax call
         
-        });  // end step1_dimensione
+        });  // end step3_dimensione
+
+        
+        /*STEP4*/
+        
+        $(document).on("change", "#select_step_4", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+			
+			calcolaTotale();
+			
+			if (valore == '2 skimmer + 2 bocchette + 1 scarico (ø 50)'){
+				step = '4-extra';
+			} else{
+				step = '4';
+			}
+			
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=' +step,
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+					if (step == '4-extra')	{	
+
+				    $("#dotazioni").html(responseData);
+					$('.dotazioni-4').selectpicker("refresh");
+
+					} else {
+
+				    $("#optional").html(responseData);
+					$('.optional-4').selectpicker("refresh");
+
+					}
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					alert(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step4
+
+
+		$(document).on("change", "#step_4_dotazioni", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			console.log(valore);
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=4-dimensioni',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				calcolaTotale();
+
+				//abilitare optional
+				
+				    $("#optional").html(responseData);
+					$('.optional-4').selectpicker("refresh");
+								
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step4_dotazioni
+
+       
+       
+       		$(document).on("change", "#step_4_optional", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=4-final',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				//abilitare optional
+				if (responseData == 'step_ok')
+					{
+					
+					location.href = urlRedirect+'/filtrazione.php';
+
+					}
+
+								
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step4_dotazioni
 
         
         
