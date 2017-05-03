@@ -58,6 +58,7 @@ class PVP {
 	           	
 
 		$con = new mysqli($this->host, $this->dbuser, $this->dbpasswd, $this->dbtable);
+		$con->set_charset("utf8");
 
 			if (mysqli_connect_errno($con))
 			  
