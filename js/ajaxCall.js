@@ -486,6 +486,103 @@
 
         
         
+        /*STEP 5*/
+        
+         
+        $(document).on("change", "#select_step_5", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=5',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				    $("#marca").html(responseData);
+					$('.marca-5').selectpicker("refresh");
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step5
+        
+       
+        $(document).on("change", "#step_5_marca", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=5-marca',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+					calcolaTotale();
+	
+				    $("#optional").html(responseData);
+					$('.optional-5').selectpicker("refresh");
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step5
+        
+        
+        $(document).on("change", "#step_5_optional", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=5-final',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+	
+				if (responseData == 'step_ok')
+					{
+					
+					location.href = urlRedirect+'/illuminazione.php';
+
+					}
+
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step5
+
+
+
+        
+        
+        
         //FOOTER FUNCTION
         
         $("#torna-indietro").click(function(event){

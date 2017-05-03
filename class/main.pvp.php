@@ -891,6 +891,227 @@ class PVP {
 				
 				
 			}//end step4_final
+			
+			
+		public function step5(){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+							
+				// ESEGUO UN CONTROLLO DI INTEGRITA' TRA SESSIONE E DATABASE
+				
+				$q = $db->query("SELECT id_sessione, altezza FROM $this->riepilogo WHERE id_sessione='$token' AND altezza='$altezza' ");
+
+				$row = $q->num_rows;
+				
+				if ($row == '0'){
+					
+					echo '<div class="alert alert-danger" role="alert">ERRORE NEL CONTROLLO DEI DATI. INIZIARE UNA NUOVA CONFIGURAZIONE!</div>';
+					
+					exit();
+				} 
+				
+				// FINE CONTROLLO
+				
+				
+			//	$altezza = ($modello == 'sport') ? $altezza : 'tutte';
+				
+				$q = $db->query("SELECT DISTINCT scelta_primaria FROM configuratore_$modello WHERE step='5' ");
+   				
+   				
+   				
+   				echo '
+   				<select id="select_step_5" class="step5-init show-tick">
+   				<option>Seleziona Filtrazione</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_primaria.'">' .$obj->scelta_primaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+				
+				/* free result set */
+				$db->close();
+
+
+				
+			} //end step4
+			
+			
+		public function step5_marca($valore)	{
+				
+				//INSERISCO IL VALORE PRECEDENTE E SELEZIONO I NUOVI
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+
+				 				
+				
+				$q = $db->query("SELECT step, id_sessione, altezza FROM $this->riepilogo WHERE  id_sessione = '$token' and step='5' ");
+							
+				$row = $q->num_rows;
+				
+														
+				if ($row == 0)
+				{
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria) VALUES ('5', '$modello', '$token', NOW(), '$altezza', '$valore')");
+					
+					$_SESSION["step5"]['scelta_primaria'] = $valore;
+				}
+								
+				else {
+					$q = $db->query("UPDATE $this->riepilogo SET scelta_primaria='$valore' WHERE id_sessione = '$token' and step = '5' ");
+
+					$_SESSION["step5"]['scelta_primaria'] = $valore;
+				}
+
+
+				//SELEZIONO I TELAI
+   				$q = $db->query("select DISTINCT scelta_secondaria from configuratore_$modello WHERE step='5' AND scelta_primaria ='$valore' ");
+				
+				
+				 echo '
+   				<br />
+   				<h3>MARCA</H3>
+   				<select id="step_5_marca" class="marca-5 show-tick">
+   				<option>Seleziona Marca</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_secondaria.'">' .$obj->scelta_secondaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+			
+			} //end step5_marca
+			
+			
+			public function step5_marca_insert($scelta_secondaria){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				$scelta_primaria = $_SESSION["step5"]['scelta_primaria'];
+				
+				//AGGIORNO SEMPRE IL RECORD ESISTENTE
+				
+				$q = $db->query("UPDATE $this->riepilogo SET scelta_secondaria='$scelta_secondaria' WHERE id_sessione = '$token' and step = '5' AND scelta_primaria='$scelta_primaria' ");
+				
+				$_SESSION['step5']['marca'] = $scelta_secondaria;
+				
+			$altezza = ($modello == 'sport' and $scelta_primaria == 'liner') ? $altezza : 'tutte';		
+					
+				// inserisco il prezzo				
+				$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$scelta_primaria' AND step = '5' AND altezza = '$altezza' AND scelta_secondaria='$scelta_secondaria') WHERE step=5 AND scelta_primaria = '$scelta_primaria' AND id_sessione='$token' ");
+				
+					return $this->step5_optional();																		
+
+			}
+
+			 
+		public function step5_optional()	{
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				
+				$q = $db->query("SELECT DISTINCT scelta_primaria FROM configuratore_$modello WHERE step='5s' ");
+				
+				
+				 echo '
+   				<br />
+   				<h3>OPTIONAL</H3>
+   				<select id="step_5_optional" class="optional-5 show-tick">
+   				<option>Seleziona Optional</option>
+   				<option value="nessuno">Nessuno</option>;
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_primaria.'">' .$obj->scelta_primaria . '</option>';
+			    }		   
+			    echo '</select>'; 
+
+			}
+
+		
+		public function step5_final($valore){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+
+				$q = $db->query("SELECT step, id_sessione, altezza FROM $this->riepilogo WHERE  id_sessione = '$token' and step='5s' ");
+							
+				$row = $q->num_rows;
+				
+														
+				if ($row == 0)
+				{
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria) VALUES ('5s', '$modello', '$token', NOW(), '$altezza', '$valore')");
+					
+					$_SESSION["step5s"]['scelta_primaria'] = $valore;
+												
+					//aggiorno il prezzo
+										
+	if ($valore == 'nessuno')
+								{
+								
+								$q = $db->query("UPDATE $this->riepilogo SET prezzo='0.00' WHERE step='5s' ");
+			
+								} else {
+											
+								$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$valore' AND step = '5s') WHERE step='5s' AND scelta_primaria = '$valore' AND id_sessione='$token' ");
+		
+							}
+									
+				}
+								
+				else {
+					
+					$q = $db->query("UPDATE $this->riepilogo SET scelta_primaria='$valore' WHERE id_sessione = '$token' and step = '4s' ");
+							if ($valore == 'nessuno')
+							{
+							
+							$q = $db->query("UPDATE $this->riepilogo SET prezzo='0.00' WHERE step='5s' ");
+		
+							} else {
+										
+							$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$valore' AND step = '5s') WHERE step='5s' AND scelta_primaria = '$valore' AND id_sessione='$token' ");
+							}
+					
+					$_SESSION["step5s"]['scelta_primaria'] = $valore;
+					
+				}
+
+				return 'step_ok';
+				
+				
+			}//end step4_final
 		
 		
 			public function calcoloTotale()	{

@@ -83,7 +83,18 @@ require_once 'main.pvp.php';
 					case '4-final':
 					echo $pvp->step4_final($valore);
 					break;
-
+					
+					case '5':
+					echo $pvp->step5_marca($valore);
+					break;
+					
+					case '5-marca':
+					echo $pvp->step5_marca_insert($valore);
+					break;
+					
+					case '5-final':
+					echo $pvp->step5_final($valore);
+					break;
 					  
 				    default:
 				    echo 'nessun metodo valido è stato trovato per l\'opzione: ' . $valore . ' nello step: ' . $step;
