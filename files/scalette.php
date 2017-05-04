@@ -5,7 +5,7 @@ $pvp = new PVP();
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,21 +30,18 @@ $pvp = new PVP();
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="body-illuminazione">
+  <body class="body-scalette">
 <script>document.body.className += ' fade-out';</script>
 <!-- 	  <script>document.body.className += ' fade-out';</script> -->
 <!-- Stack the columns on mobile by making one full-width and the other half-width -->
 <div class="row ">
 	 <div class="col-xs-12 col-md-12 center-page">
 	 <h4>PrimaVeraPool</h4>
-	 <h3>ILLUMINAZIONE</h3>
+	 <h3>SCALETTE</h3>
 	 <br />
 
-	 <?php $pvp->step6(); ?>
+	 <?php $pvp->step8(); ?>
 	 
-	 <div id="numero-led"></div>
-
-
 
 
   </div>

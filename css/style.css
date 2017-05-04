@@ -57,6 +57,26 @@ body.fade-out {
 	color: #fff;
 }
 
+.body-illuminazione	{
+	background-color: #f7a435;
+	color: #fff;
+}
+
+.body-bordo	{
+	background-color: #b8a256;
+	color: #fff;
+}
+
+.body-scalette	{
+	background-color: #7c85cb;
+	color: #fff;
+}
+
+.body-pulizia	{
+	background-color: #dbdad2;
+	color: #fff;
+}
+
 
 .footer p {
 	margin: 0 0 2px !important;

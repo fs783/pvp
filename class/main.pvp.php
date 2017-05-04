@@ -617,6 +617,7 @@ class PVP {
 				// inserisco il prezzo				
 				$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$scelta_primaria' AND step = '3' AND altezza = '$altezza' AND scelta_secondaria='$scelta_secondaria') WHERE step=3 AND scelta_primaria = '$scelta_primaria' AND id_sessione='$token' ");
 				
+				return 'step_ok';
 														
 			}
 
@@ -941,7 +942,7 @@ class PVP {
 
 
 				
-			} //end step4
+			} //end step5
 			
 			
 		public function step5_marca($valore)	{
@@ -1111,7 +1112,384 @@ class PVP {
 				return 'step_ok';
 				
 				
-			}//end step4_final
+			}//end step5_final
+			
+			
+			
+			public function step6(){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+							
+				// ESEGUO UN CONTROLLO DI INTEGRITA' TRA SESSIONE E DATABASE
+				
+				$q = $db->query("SELECT id_sessione, altezza FROM $this->riepilogo WHERE id_sessione='$token' AND altezza='$altezza' ");
+
+				$row = $q->num_rows;
+				
+				if ($row == '0'){
+					
+					echo '<div class="alert alert-danger" role="alert">ERRORE NEL CONTROLLO DEI DATI. INIZIARE UNA NUOVA CONFIGURAZIONE!</div>';
+					
+					exit();
+				} 
+				
+				// FINE CONTROLLO
+				
+				
+			//	$altezza = ($modello == 'sport') ? $altezza : 'tutte';
+				
+				$q = $db->query("SELECT DISTINCT scelta_primaria FROM configuratore_$modello WHERE step='6' ");
+   				
+   				
+   				
+   				echo '
+   				<select id="select_step_6" class="step6-init show-tick">
+   				<option>Seleziona Illuminazione</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_primaria.'">' .$obj->scelta_primaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+				
+				/* free result set */
+				$db->close();
+
+
+				
+			} //end step6
+			
+		
+		
+		public function step6_led($valore)	{
+				
+				//INSERISCO IL VALORE PRECEDENTE E SELEZIONO I NUOVI
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+
+				 				
+				
+				$q = $db->query("SELECT step, id_sessione, altezza FROM $this->riepilogo WHERE  id_sessione = '$token' and step='6' ");
+							
+				$row = $q->num_rows;
+				
+														
+				if ($row == 0)
+				{
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria) VALUES ('6', '$modello', '$token', NOW(), '$altezza', '$valore')");
+					
+					$_SESSION["step6"]['scelta_primaria'] = $valore;
+				}
+								
+				else {
+					$q = $db->query("UPDATE $this->riepilogo SET scelta_primaria='$valore' WHERE id_sessione = '$token' and step = '6' ");
+
+					$_SESSION["step6"]['scelta_primaria'] = $valore;
+				}
+
+
+				//SELEZIONO I TELAI
+   				$q = $db->query("select DISTINCT scelta_secondaria from configuratore_$modello WHERE step='6' AND scelta_primaria ='$valore' ");
+				
+				
+				 echo '
+   				<br />
+   				<h3>NUMERO</H3>
+   				<select id="step_6_led" class="numero-6 show-tick">
+   				<option>Seleziona quantità</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_secondaria.'">' .$obj->scelta_secondaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+			
+			} //end step5_marca
+
+		
+		
+			public function step6_final($scelta_secondaria){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				$scelta_primaria = $_SESSION["step6"]['scelta_primaria'];
+				
+				//AGGIORNO SEMPRE IL RECORD ESISTENTE
+				
+				$q = $db->query("UPDATE $this->riepilogo SET scelta_secondaria='$scelta_secondaria' WHERE id_sessione = '$token' and step = '6' AND scelta_primaria='$scelta_primaria' ");
+				
+				$_SESSION['step6']['numero'] = $scelta_secondaria;
+				
+			$altezza = ($modello == 'sport' and $scelta_primaria == 'liner') ? $altezza : 'tutte';		
+					
+				// inserisco il prezzo				
+				$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$scelta_primaria' AND step = '6' AND altezza = '$altezza' AND scelta_secondaria='$scelta_secondaria') WHERE step='6' AND scelta_primaria = '$scelta_primaria' AND id_sessione='$token' ");
+				
+				return 'step_ok';
+														
+			}
+		
+		
+		
+		public function step7(){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+							
+				// ESEGUO UN CONTROLLO DI INTEGRITA' TRA SESSIONE E DATABASE
+				
+				$q = $db->query("SELECT id_sessione, altezza FROM $this->riepilogo WHERE id_sessione='$token' AND altezza='$altezza' ");
+
+				$row = $q->num_rows;
+				
+				if ($row == '0'){
+					
+					echo '<div class="alert alert-danger" role="alert">ERRORE NEL CONTROLLO DEI DATI. INIZIARE UNA NUOVA CONFIGURAZIONE!</div>';
+					
+					exit();
+				} 
+				
+				// FINE CONTROLLO
+				
+				
+			//	$altezza = ($modello == 'sport') ? $altezza : 'tutte';
+				
+				$q = $db->query("SELECT DISTINCT scelta_primaria FROM configuratore_$modello WHERE step='7' ");
+   				
+   				
+   				
+   				echo '
+   				<select id="select_step_7" class="step7-init show-tick">
+   				<option>Seleziona bordo</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_primaria.'">' .$obj->scelta_primaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+				
+				/* free result set */
+				$db->close();
+
+
+				
+			} //end step7
+
+
+			public function step7_dimensione($scelta_primaria){
+				
+				
+				//INSERISCO IL VALORE PRECEDENTE E SELEZIONO I NUOVI
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				
+				$q = $db->query("SELECT step, id_sessione, altezza FROM $this->riepilogo WHERE  id_sessione = '$token' and step='7' ");
+							
+				$row = $q->num_rows;
+				
+														
+				if ($row == 0)
+				{
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria) VALUES ('7', '$modello', '$token', NOW(), '$altezza', '$scelta_primaria')");
+					
+					$_SESSION["step7"]['scelta_primaria'] = $scelta_primaria;
+				}
+								
+				else {
+					$q = $db->query("UPDATE $this->riepilogo SET scelta_primaria='$scelta_primaria' WHERE id_sessione = '$token' and step = '7' ");
+
+					$_SESSION["step7"]['scelta_primaria'] = $scelta_primaria;
+					
+				}
+
+				//mostro seconda select
+				
+				$altezza = ($modello == 'sport' and $scelta_primaria == 'liner') ? $altezza : 'tutte';
+				
+												
+				//SELEZIONO I TELAI
+   				$q = $db->query("select DISTINCT scelta_secondaria from configuratore_$modello WHERE step='7' AND altezza ='$altezza' AND scelta_primaria ='$scelta_primaria' ");
+   				
+				
+				 echo '
+   				<br />
+   				<h3>DIMENSIONE</H3>
+   				<select id="step_7_dimensione" class="bordo-7 show-tick">
+   				<option>Seleziona Dimensione</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_secondaria.'">' .$obj->scelta_secondaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+
+				
+				
+			} //end step7_dimensione
+
+		
+		public function step7_insert($scelta_secondaria){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				$scelta_primaria = $_SESSION["step7"]['scelta_primaria'];
+				
+				//AGGIORNO SEMPRE IL RECORD ESISTENTE
+				
+				$q = $db->query("UPDATE $this->riepilogo SET scelta_secondaria='$scelta_secondaria' WHERE id_sessione = '$token' and step = '7' AND scelta_primaria='$scelta_primaria' ");
+				
+				$_SESSION['step7']['dimensione'] = $scelta_secondaria;
+				
+			$altezza = ($modello == 'sport' and $scelta_primaria == 'liner') ? $altezza : 'tutte';		
+					
+				// inserisco il prezzo				
+				$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$scelta_primaria' AND step = '7' AND altezza = '$altezza' AND scelta_secondaria='$scelta_secondaria') WHERE step='7' AND scelta_primaria = '$scelta_primaria' AND id_sessione='$token' ");
+				
+				return 'step_ok';
+														
+			}
+		
+		
+		
+			public function step8(){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+							
+				// ESEGUO UN CONTROLLO DI INTEGRITA' TRA SESSIONE E DATABASE
+				
+				$q = $db->query("SELECT id_sessione, altezza FROM $this->riepilogo WHERE id_sessione='$token' AND altezza='$altezza' ");
+
+				$row = $q->num_rows;
+				
+				if ($row == '0'){
+					
+					echo '<div class="alert alert-danger" role="alert">ERRORE NEL CONTROLLO DEI DATI. INIZIARE UNA NUOVA CONFIGURAZIONE!</div>';
+					
+					exit();
+				} 
+				
+				// FINE CONTROLLO
+				
+				
+			//	$altezza = ($modello == 'sport') ? $altezza : 'tutte';
+				
+				$q = $db->query("SELECT DISTINCT scelta_primaria FROM configuratore_$modello WHERE step='8' ");
+   				
+   				
+   				
+   				echo '
+   				<select id="select_step_8" class="step7-init show-tick">
+   				<option>Seleziona scalette</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_primaria.'">' .$obj->scelta_primaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+				
+				/* free result set */
+				$db->close();
+
+
+				
+			} //end step8
+			
+			
+			public function step8_insert($valore)	{
+				
+				//INSERISCO IL VALORE PRECEDENTE E SELEZIONO I NUOVI
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+
+				 				
+				
+				$q = $db->query("SELECT step, id_sessione, altezza FROM $this->riepilogo WHERE  id_sessione = '$token' and step='8' ");
+							
+				$row = $q->num_rows;
+				
+														
+				if ($row == 0)
+				{
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria) VALUES ('8', '$modello', '$token', NOW(), '$altezza', '$valore')");
+					
+					$_SESSION["step8"]['scelta_primaria'] = $valore;
+					
+					//INSERISCO IL PREZZO
+					
+					$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$valore' AND step = '8' AND scelta_secondaria LIKE '%$altezza%') WHERE step='8' AND scelta_primaria = '$valore' AND id_sessione='$token' ");
+					
+					
+				}
+								
+				else {
+					$q = $db->query("UPDATE $this->riepilogo SET scelta_primaria='$valore' WHERE id_sessione = '$token' and step = '8' ");
+
+					$_SESSION["step8"]['scelta_primaria'] = $valore;
+					
+					$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$valore' AND step = '8' AND scelta_secondaria LIKE '%$altezza%') WHERE step='8' AND scelta_primaria = '$valore' AND id_sessione='$token' ");
+					
+					return 'step_ok';
+				}
+						
+			} //end step8_insert
+
+
+		
+		
+		
 		
 		
 			public function calcoloTotale()	{

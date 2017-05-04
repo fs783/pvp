@@ -95,6 +95,26 @@ require_once 'main.pvp.php';
 					case '5-final':
 					echo $pvp->step5_final($valore);
 					break;
+					
+					case '6':
+					echo $pvp->step6_led($valore);
+					break;
+					
+					case '6-numero-led':
+					echo $pvp->step6_final($valore);
+					break;
+					
+					case '7':
+					echo $pvp->step7_dimensione($valore);
+					break;
+					
+					case '7-insert':
+					echo $pvp->step7_insert($valore);
+					break;
+					  
+					 case '8':
+					echo $pvp->step8_insert($valore);
+					break; 
 					  
 				    default:
 				    echo 'nessun metodo valido è stato trovato per l\'opzione: ' . $valore . ' nello step: ' . $step;

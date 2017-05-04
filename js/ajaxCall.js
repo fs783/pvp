@@ -363,7 +363,13 @@
 
 				calcolaTotale();
 
-			   location.href = urlRedirect+'/dotazioni.php';
+				if (responseData == 'step_ok')
+					{
+					
+					location.href = urlRedirect+'/dotazioni.php';
+
+					}
+
 				
 				}, 
 				error: function (responseData, textStatus, errorThrown) {
@@ -579,8 +585,167 @@
         });  // end step5
 
 
+			/*			STEP6			*/
+			
+	 $(document).on("change", "#select_step_6", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
 
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=6',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				    $("#numero-led").html(responseData);
+					$('.numero-6').selectpicker("refresh");
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
         
+        });  // end step6
+
+
+		$(document).on("change", "#step_6_led", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=6-numero-led',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				if (responseData == 'step_ok')
+					{
+					
+					location.href = urlRedirect+'/bordo.php';
+
+					}
+
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step5
+
+
+        /*			STEP 7		*/
+        
+        $(document).on("change", "#select_step_7", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=7',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				    $("#dimensione-bordo").html(responseData);
+					$('.bordo-7').selectpicker("refresh");
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step7
+       
+        
+        
+         $(document).on("change", "#step_7_dimensione", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + valore + '&step=7-insert',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+					
+				if (responseData == 'step_ok')
+					{
+					
+					location.href = urlRedirect+'/scalette.php';
+
+					}
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step7_dimensione
+
+
+
+		/*			STEP8			*/
+		
+		 $(document).on("change", "#select_step_8", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=8',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				if (responseData == 'step_ok')
+					{
+					
+					location.href = urlRedirect+'/pulizia.php';
+
+					}
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step5
+        
+
         
         
         //FOOTER FUNCTION
