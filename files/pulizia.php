@@ -42,6 +42,8 @@ $pvp = new PVP();
 
 	 <?php $pvp->step9(); ?>
 	 
+	 <div id="pulizia"></div>
+	 
 
 
   </div>

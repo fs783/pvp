@@ -112,9 +112,18 @@ require_once 'main.pvp.php';
 					echo $pvp->step7_insert($valore);
 					break;
 					  
-					 case '8':
+					case '8':
 					echo $pvp->step8_insert($valore);
 					break; 
+					  
+					case '9':
+					echo $pvp->step9_dimensione($valore);
+					break; 
+					
+					case '9-insert':
+					echo $pvp->step9_insert($valore);
+					break;
+					
 					  
 				    default:
 				    echo 'nessun metodo valido è stato trovato per l\'opzione: ' . $valore . ' nello step: ' . $step;

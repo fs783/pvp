@@ -68,12 +68,17 @@ body.fade-out {
 }
 
 .body-scalette	{
-	background-color: #7c85cb;
+	background-color: #dbdad2;
 	color: #fff;
 }
 
 .body-pulizia	{
-	background-color: #dbdad2;
+	background-color: #7c85cb;
+	color: #fff;
+}
+
+.body-optional	{
+	background-color: #9c0b01;
 	color: #fff;
 }
 

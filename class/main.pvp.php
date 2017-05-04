@@ -1488,8 +1488,144 @@ class PVP {
 
 
 		
-		
-		
+		public function step9(){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+							
+				// ESEGUO UN CONTROLLO DI INTEGRITA' TRA SESSIONE E DATABASE
+				
+				$q = $db->query("SELECT id_sessione, altezza FROM $this->riepilogo WHERE id_sessione='$token' AND altezza='$altezza' ");
+
+				$row = $q->num_rows;
+				
+				if ($row == '0'){
+					
+					echo '<div class="alert alert-danger" role="alert">ERRORE NEL CONTROLLO DEI DATI. INIZIARE UNA NUOVA CONFIGURAZIONE!</div>';
+					
+					exit();
+				} 
+				
+				// FINE CONTROLLO
+				
+				
+			//	$altezza = ($modello == 'sport') ? $altezza : 'tutte';
+				
+				$q = $db->query("SELECT DISTINCT scelta_primaria FROM configuratore_$modello WHERE step='9' ");
+   				
+   				
+   				
+   				echo '
+   				<select id="select_step_9" class="step9-init show-tick">
+   				<option>Seleziona Marca</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_primaria.'">' .$obj->scelta_primaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+				
+				/* free result set */
+				$db->close();
+
+
+				
+			} //end step9
+			
+			
+		public function step9_dimensione($scelta_primaria){
+				
+				
+				//INSERISCO IL VALORE PRECEDENTE E SELEZIONO I NUOVI
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				
+				$q = $db->query("SELECT step, id_sessione, altezza FROM $this->riepilogo WHERE  id_sessione = '$token' and step='9' ");
+							
+				$row = $q->num_rows;
+				
+														
+				if ($row == 0)
+				{
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria) VALUES ('9', '$modello', '$token', NOW(), '$altezza', '$scelta_primaria')");
+					
+					$_SESSION["step9"]['scelta_primaria'] = $scelta_primaria;
+				}
+								
+				else {
+					$q = $db->query("UPDATE $this->riepilogo SET scelta_primaria='$scelta_primaria' WHERE id_sessione = '$token' and step = '9' ");
+
+					$_SESSION["step9"]['scelta_primaria'] = $scelta_primaria;
+					
+				}
+
+				//mostro seconda select
+				
+				$altezza = ($modello == 'sport' and $scelta_primaria == 'liner') ? $altezza : 'tutte';
+				
+												
+				//SELEZIONO I TELAI
+   				$q = $db->query("select DISTINCT scelta_secondaria from configuratore_$modello WHERE step='9' AND altezza ='$altezza' AND scelta_primaria ='$scelta_primaria' ");
+   				
+				
+				 echo '
+   				<br />
+   				<h3>DIMENSIONE</H3>
+   				<select id="step_9_dimensione" class="pulizia-9 show-tick">
+   				<option>Seleziona Dimensione</option>
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_secondaria.'">' .$obj->scelta_secondaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+
+				
+				
+			} //end step9_dimensione
+
+
+		public function step9_insert($scelta_secondaria){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+				
+				$scelta_primaria = $_SESSION["step9"]['scelta_primaria'];
+				
+				//AGGIORNO SEMPRE IL RECORD ESISTENTE
+				
+				$q = $db->query("UPDATE $this->riepilogo SET scelta_secondaria='$scelta_secondaria' WHERE id_sessione = '$token' and step = '9' AND scelta_primaria='$scelta_primaria' ");
+				
+				$_SESSION['step9']['dimensione'] = $scelta_secondaria;
+				
+			$altezza = ($modello == 'sport' and $scelta_primaria == 'liner') ? $altezza : 'tutte';		
+					
+				// inserisco il prezzo				
+				$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$scelta_primaria' AND step = '9' AND altezza = '$altezza' AND scelta_secondaria='$scelta_secondaria') WHERE step='9' AND scelta_primaria = '$scelta_primaria' AND id_sessione='$token' ");
+				
+				return 'step_ok';
+														
+			}
+
 		
 		
 			public function calcoloTotale()	{

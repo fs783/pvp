@@ -745,7 +745,70 @@
         
         });  // end step5
         
+        
+        
+        /*			STEP9 		*/
+        
+         $(document).on("change", "#select_step_9", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
 
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=9',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				    $("#pulizia").html(responseData);
+					$('.pulizia-9').selectpicker("refresh");
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step7
+
+
+        $(document).on("change", "#step_9_dimensione", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=9-insert',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				if (responseData == 'step_ok')
+					{
+					
+					location.href = urlRedirect+'/optional.php';
+
+					}
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step5
+
+        
         
         
         //FOOTER FUNCTION
