@@ -131,6 +131,10 @@ require_once 'main.pvp.php';
 					case '10-insert':
 					echo $pvp->step10_final($valore);
 					break;
+					
+					case 'login':
+					echo $pvp->loginCheck($valore);
+					break;
 					  
 				    default:
 				    echo 'nessun metodo valido è stato trovato per l\'opzione: ' . $valore . ' nello step: ' . $step;

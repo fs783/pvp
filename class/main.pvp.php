@@ -1424,7 +1424,7 @@ class PVP {
    				
    				
    				echo '
-   				<select id="select_step_8" class="step7-init show-tick">
+   				<select id="select_step_8" class="step8-init show-tick">
    				<option>Seleziona scalette</option>
    				';
 				
@@ -1471,6 +1471,7 @@ class PVP {
 					
 					$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$valore' AND step = '8' AND scelta_secondaria LIKE '%$altezza%') WHERE step='8' AND scelta_primaria = '$valore' AND id_sessione='$token' ");
 					
+					return 'step_ok';					
 					
 				}
 								
@@ -1800,7 +1801,51 @@ class PVP {
 			}//end step5_final
 
 
-		
+			public function loginCheck($codice)	{
+				
+
+				$db = $this->db_connect();
+				
+
+				$q = $db->query("SELECT * FROM pvp_autorizzati WHERE sap_code='$codice' ");
+			
+				
+				$row = $q->num_rows;
+				
+				if ($row == 0)
+				{
+				
+				return 'utente_ko';
+				
+				} else	{
+				
+				setcookie("checkLoginPVP", 1, time() + (86400 * 365), "/");  /* expire in 1 anno */
+
+				return 'utente_ok';
+								
+				}
+						
+				
+			}  //end loginCheck
+			
+			
+							
+				public function checkValidLogin()	{
+					
+
+					if (isset($_COOKIE['checkLoginPVP'])) {
+					
+					header('Location: ../pvp/files/home.php');
+				
+					exit;
+							
+					}
+
+					
+					
+				}
+
+			
 		
 			public function calcoloTotale()	{
 				

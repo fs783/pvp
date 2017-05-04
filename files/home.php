@@ -1,10 +1,5 @@
 <?php
 session_start();
-
-require_once './class/main.pvp.php';
-$pvp = new PVP();
-
-$pvp->checkValidLogin(); // controllo se il cookie è presente
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,12 +11,10 @@ $pvp->checkValidLogin(); // controllo se il cookie è presente
     <title>PVP</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     	    <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-	<link rel="stylesheet" href="./css/animsition.min.css">
-
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,48 +23,33 @@ $pvp->checkValidLogin(); // controllo se il cookie è presente
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="background-color: #2c3336;color:#FFF;">
+  <body>
 	  <script>document.body.className += ' fade-out';</script>
 <!-- // <script>document.body.className += ' fade-out';</script>	   -->
-
-
+<!-- Stack the columns on mobile by making one full-width and the other half-width -->
 <div class="row centered">
 	 <div class="col-xs-12 col-md-12">
-
-<!-- Stack the columns on mobile by making one full-width and the other half-width -->
-<div class="alert alert-danger" role="alert" style="width:80%;margin:0 auto;display:none;" id="login-fail">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <center><strong><h4>Attenzione!</h4></strong></center>Utente non abilitato. Contattare il servizio di assistenza.
-</div>
 	 
-	  <h3>Inserisci il tuo codice Identificativo</h3>
-
+	  <h4>Creo la mia</h4>
+	  <h4>PrimaVeraPool</h4>
 	  <br /><br />
-	  
-	  <input type="text" id="codice-sap" class="form-control input-lg" placeholder="Codice">
-
+	  	<button type="button" class="btn btn-primary btn-home exec animsition-link" data-nome="sport" data-step="home"  data-tipo ="boh" id="sport">Sport</button>
 	  	<br /><br />
-	  	
-	  	<button type="button" class="btn btn-danger btn-home btn-lg"  id="login">Login</button>
-	  	<br /><br />
-
+		<button type="button" class="btn btn-primary btn-home exec animsition-link" data-nome="design" data-step="home"  data-tipo ="boh" id="design">Design</button>
   	</div>
 </div>
-
 
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/ajaxCall.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/ajaxCall.js"></script>
     
 	
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 	
-
-	<script src="./js/jquery-ui.min.js"></script>
   </body>
 </html>

@@ -78,6 +78,40 @@
 				
 		});
 		
+		
+				$('#login').click(function(){
+				
+				codice = $("#codice-sap").val();
+				
+					$.ajax({
+						 url: urlCall,
+						 data: 'valore=' + codice + '&step=login' ,
+						 type: 'POST',
+						//async: false,
+						dataType: 'text',
+							    
+						success: function(responseData, textStatus, jqXHR) {
+						
+						if (responseData == 'utente_ko'){
+							$("#login-fail").hide();
+							$("#login-fail").fadeIn(1200).delay(3000).fadeOut(1200); 
+							 
+							} else	{
+								
+							location.href = urlRedirect+'/home.php';
+
+							}			
+						
+						}, 
+						error: function (responseData, textStatus, errorThrown) {
+							alert(textStatus +' : '+ errorThrown);
+						}
+								
+					});    //end ajax call
+				
+				
+				});
+		
 		//STEP 1
 	
 		$('#select_step_1').on('change', function(){
