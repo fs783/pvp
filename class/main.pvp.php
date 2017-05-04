@@ -3,7 +3,7 @@
 Tipologia: Calsse Main PVP
 Autore: Fabio Simi
 Data inizio: 18/04/2017 - 16:54
-Ultima modifica:  24/04/2017 - 16:34
+Ultima modifica:  04/05/2017 - 03:18
 **************************************/
 
 class PVP {
@@ -1625,6 +1625,180 @@ class PVP {
 				return 'step_ok';
 														
 			}
+
+		
+		
+				public function step10(){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+							
+				// ESEGUO UN CONTROLLO DI INTEGRITA' TRA SESSIONE E DATABASE
+				
+				$q = $db->query("SELECT id_sessione, altezza FROM $this->riepilogo WHERE id_sessione='$token' AND altezza='$altezza' ");
+
+				$row = $q->num_rows;
+				
+				if ($row == '0'){
+					
+					echo '<div class="alert alert-danger" role="alert">ERRORE NEL CONTROLLO DEI DATI. INIZIARE UNA NUOVA CONFIGURAZIONE!</div>';
+					
+					exit();
+				} 
+				
+				// FINE CONTROLLO
+				
+				
+			//	$altezza = ($modello == 'sport') ? $altezza : 'tutte';
+				
+				$q = $db->query("SELECT scelta_secondaria FROM configuratore_$modello WHERE step='10' AND scelta_primaria='AngelEye' ");
+   				   				
+   				
+   				echo '
+   				<select id="select_step_10" class="step10-init show-tick">
+   				<option>Seleziona Telecamere</option>
+   				<option value="nessuno">Nessuna</option>;
+   				';
+				
+			    while ($obj = $q->fetch_object()) {
+			        echo '<option value="'.$obj->scelta_secondaria.'">' .$obj->scelta_secondaria . '</option>';
+			    }		   
+			    
+			    echo '</select>'; 
+				
+				/* free result set */
+				$db->close();
+
+
+				
+			} //end step10
+		
+		
+		public function step10_option($valore){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+
+				$q = $db->query("SELECT step, id_sessione, altezza FROM $this->riepilogo WHERE  id_sessione = '$token' and step='10' ");
+							
+				$row = $q->num_rows;
+														
+				if ($row == 0)
+				{
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria, scelta_secondaria) VALUES ('10', '$modello', '$token', NOW(), '$altezza', 'AngelEye' , '$valore')");
+					
+					$_SESSION["step10"]['scelta_secondaria'] = $valore;
+												
+					//aggiorno il prezzo
+										
+	if ($valore == 'nessuno')
+								{
+								
+								$q = $db->query("UPDATE $this->riepilogo SET prezzo='0.00' WHERE step='10' ");
+			
+								} else {
+											
+								$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='AngelEye' AND scelta_secondaria='$valore' AND step = '10') WHERE step='10' AND scelta_primaria = 'AngelEye' AND scelta_secondaria='$valore'AND id_sessione='$token' ");
+								
+	
+							}
+									
+				}
+								
+				else {
+					
+					$q = $db->query("UPDATE $this->riepilogo SET scelta_secondaria ='$valore' WHERE id_sessione = '$token' and step = '10' ");
+					
+							if ($valore == 'nessuno')
+							{
+							
+							$q = $db->query("UPDATE $this->riepilogo SET prezzo='0.00' WHERE step='10' ");
+		
+							} else {
+										
+								$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='AngelEye' AND scelta_secondaria='$valore' AND step = '10') WHERE step='10' AND scelta_primaria = 'AngelEye' AND scelta_secondaria='$valore' AND id_sessione='$token' ");
+															
+							}
+					
+					$_SESSION["step10"]['scelta_secondaria'] = $valore;
+					
+				}
+			
+				
+				 echo '
+   				<br />
+   				<h3>NUOTO CONTROCORRENTE</H3>
+   				<select id="step_10_optional" class="optional-10 show-tick">
+   				<option value="seleziona">Seleziona</option>
+   				<option value="si">SÌ</option>
+   				<option value="no">NO</option>
+   				</select>
+   				'; 
+
+			}
+
+				
+		public function step10_final($valore){
+				
+				$db = $this->db_connect();
+				
+				$modello = $_SESSION["step1"]['modello'];
+			
+				$altezza = $_SESSION["step1"]['altezza'];
+			
+				$token = $_SESSION["step1"]["token_sessione"];
+
+				$q = $db->query("SELECT step, id_sessione, altezza FROM $this->riepilogo WHERE  id_sessione = '$token' and step='10s' ");
+				
+										
+				$row = $q->num_rows;
+				
+														
+				if ($row == 0)
+				{
+					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria) VALUES ('10s', '$modello', '$token', NOW(), '$altezza', 'Nuoto controcorrente')");
+					
+				
+					$_SESSION["step10s"]['scelta_primaria'] = $valore;
+												
+					//aggiorno il prezzo
+										
+					if ($valore == 'no')
+					
+					{
+					
+					$q = $db->query("UPDATE $this->riepilogo SET prezzo='0.00' WHERE step='10s' ");
+			
+					} else{
+					
+
+					$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='nuoto controcorrente' AND step = '10s') WHERE step='10s' AND scelta_primaria = 'nuoto controcorrente' AND id_sessione='$token' ");
+
+								
+					}
+				
+				}
+				
+				
+					$_SESSION["step5s"]['scelta_primaria'] = $valore;
+					
+				
+
+				return 'step_ok';
+				
+				
+			}//end step5_final
+
 
 		
 		

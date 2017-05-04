@@ -24,7 +24,7 @@
 			$('.step7-init').selectpicker();
 			$('.step8-init').selectpicker();
 			$('.step9-init').selectpicker();
-
+			$('.step10-init').selectpicker();
 
 
 	var urlCall = "http://localhost/pvp/pvp/class/ajaxController.php";
@@ -774,7 +774,7 @@
 						
 			});    //end ajax call
         
-        });  // end step7
+        });  // end step9
 
 
         $(document).on("change", "#step_9_dimensione", function () {
@@ -806,7 +806,77 @@
 						
 			});    //end ajax call
         
-        });  // end step5
+        });  // end step9
+
+        
+        $(document).on("change", "#select_step_10", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+	        
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=10',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+
+				    $("#optional").html(responseData);
+					$('.optional-10').selectpicker("refresh");
+					
+					calcolaTotale();
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end step10
+        
+        
+        $(document).on("change", "#step_10_optional", function () {
+	        
+	        var valore = $(this).find("option:selected").val();
+
+			if (valore =='si')
+			{
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(valore) + '&step=10-insert',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+				
+				if (responseData == 'scelta_ok')
+					{
+					
+					location.href = urlRedirect+'/riepilogo.php';
+
+					}
+				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+			
+			} else{
+				
+				location.href = urlRedirect+'/riepilogo.php';
+				
+			}
+        
+        });  // end step9
+
 
         
         
