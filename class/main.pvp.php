@@ -1768,8 +1768,7 @@ class PVP {
 				if ($row == 0)
 				{
 					$q = $db->query("INSERT into $this->riepilogo (step, modello, id_sessione, data, altezza, scelta_primaria) VALUES ('10s', '$modello', '$token', NOW(), '$altezza', 'Nuoto controcorrente')");
-					
-				
+												
 					$_SESSION["step10s"]['scelta_primaria'] = $valore;
 												
 					//aggiorno il prezzo
@@ -1778,7 +1777,7 @@ class PVP {
 					
 					{
 					
-					$q = $db->query("UPDATE $this->riepilogo SET prezzo='0.00' WHERE step='10s' ");
+ 					$q = $db->query("UPDATE $this->riepilogo SET prezzo='0.00' WHERE step='10s' ");
 			
 					} else{
 					
@@ -1793,9 +1792,9 @@ class PVP {
 				
 					$_SESSION["step5s"]['scelta_primaria'] = $valore;
 					
-				
+				return 'scelta_ok';
 
-				return 'step_ok';
+			//	return 'step_ok';
 				
 				
 			}//end step5_final
@@ -1830,7 +1829,149 @@ class PVP {
 			
 			
 							
-				public function checkValidLogin()	{
+			
+			public function inviaPreventivo($email)	{
+				
+				$db = $this->db_connect();
+				
+				$token = $_SESSION["step1"]["token_sessione"];
+
+				$q = $db->query("SELECT * FROM $this->riepilogo WHERE id_sessione='$token' ");
+				
+				
+				$mailtxt = '
+				<style type="text/css">
+				
+				td {
+					padding-right: 23px;
+					min-width:140px;
+				}
+				
+				</style>
+				
+				';
+				$mailtxt .= '<table>';
+				$mailtxt .= '<tr style="text-align:left;"><th>COMPONENTI</th><th>TIPOLOGIA</th><th>INFO EXTRA</th><th>PREZZO</th></tr>';
+				$mailtxt .= '<tr style="height:20px;\"></tr>';
+
+				 
+				   while ($obj = $q->fetch_object()) {
+				   
+				   $step = $obj->step;
+
+				   if ($step == 'home')
+				   continue;
+				   else if ($step == '1')
+				   $step= 'STRUTTURA:';
+				   else if($step == '2')
+				   $step = 'RIVESTIMENTO ESTERNO:';
+				   else if ($step == '3')
+				   $step= 'MEMBRANA INTERNA:';
+				   else if ($step == '4')
+				   $step= 'DOTAZIONI CIRCOLAZIONE:';
+				   else if ($step == '4s')
+				   $step= 'OPTIONAL CIRCOLAZIONE:';
+				   else if ($step == '5')
+				   $step= 'FILTRAZIONE:';
+				     else if ($step == '5s')
+				   $step= 'OPTIONAL FILTRAZIONE:';
+				     else if ($step == '6')
+				   $step= 'ILLUMINAZIONE:';
+				     else if ($step == '7')
+				   $step= 'BORDO:';
+				     else if ($step == '8')
+				   $step= 'SCALETTA:';
+				     else if ($step == '9')
+				   $step= 'PULIZIA:';
+				     else if ($step == '10')
+				   $step= 'OPTIONAL:';
+				     else if ($step == '10s')
+				   $step= 'NUOTO CONTROCORRENTE:';
+				   else
+				   $step = '';
+				   
+				   	$mailtxt .= '<tr>';
+				   	$mailtxt .= '<td><strong>'.$step.'</strong></td><td>'.$obj->scelta_primaria.'</td><td>'.$obj->scelta_secondaria.'</td><td>&euro; ' .number_format($obj->prezzo, 2, ',', '.').'</td>';
+				   $mailtxt .=  '</tr>';
+
+			    }		   
+				$mailtxt .= '<tr style="height:30px;\"></tr>';
+				$mailtxt .= '<tr><td colspan = "3"><strong>TOTALE</strong></td><td style="color:red;text-align:left;font-size:14px;"><strong>'.$this->calcoloTotale().'</strong></td></tr>';
+								
+				$mailtxt .= '</table>';
+				
+				
+				 $this-> sendMailToCustomer($mailtxt, $email);
+				
+			} //end invia preventivo
+			
+			
+			public function sendMailToCustomer($corpo_msg, $email){
+				
+				require '../lib/PHPMailer/PHPMailerAutoload.php';
+
+				$mail = new PHPMailer;
+				
+				//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+				
+				$mail->isSMTP();                                      // Set mailer to use SMTP
+				$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+				$mail->SMTPAuth = true;                               // Enable SMTP authentication
+				$mail->Username = 'fabio@digitalfollowers.com';                 // SMTP username
+				$mail->Password = 'persolino83';                           // SMTP password
+				$mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+				$mail->Port = 465;                                    // TCP port to connect to
+				$mail->CharSet = 'UTF-8';
+				
+				$mail->setFrom('no-reply@digitalfollowers.com', 'Preventivo PVP');
+		
+				$mail->addAddress($email); //tassativamente ordini.web@pools.it
+											
+				
+					$mail->isHTML(true);                                  // Set email format to HTML
+					
+					$mail->Subject = '[Preventivo] PVP ';
+					$mail->Body    = "Buongiorno, <br><br />
+					testo da concordare
+					<br /><br/>
+			
+			Ragione Sociale: <strong>Ditta  S.r.l.</strong><br />
+			
+			<h3>Riepilogo della sua piscina</h3>
+			
+			<br />		
+							
+			$corpo_msg
+			
+			<br /><br />		
+			
+			Cordiali saluti.
+				
+			";
+
+			//INVIO MAIL 
+			// TODO: CICLO DI CONTROLLO SUL CORRETTO INVIO O MENO
+			
+			 if(!$mail->Send()) {
+			    echo $mail->ErrorInfo;
+			 } else {
+			    echo "msg_ok";
+			 }
+
+				
+			}
+			
+			public function nuovaConfigurazione(){
+				
+				// distruggo la sessione attuale
+				session_unset();
+				session_destroy();
+				
+				echo 'sessione_distrutta';
+							
+			}
+			
+			public function checkValidLogin()	{
 					
 
 					if (isset($_COOKIE['checkLoginPVP'])) {

@@ -1,6 +1,15 @@
 	jQuery(document).ready(function(){
 		
 		
+		/********************************************
+			VARIABILI D'AMBIENTE
+			
+		*********************************************/	
+		
+			var urlCall = "http://localhost/pvp/pvp/class/ajaxController.php";
+			var urlRedirect = "http://localhost/pvp/pvp/files";
+			var currentLocation = window.location;
+		
 
 			$(function() {
 			
@@ -8,16 +17,15 @@
 			
 			});	
 			
-			$('.selectpicker').selectpicker();
+			/*****************************************
+				NOMI SELECT CON STILE
+			*****************************************/
 			
-			$('.step_4_optional').selectpicker();
-					
+			$('.selectpicker').selectpicker();		
+			$('.step_4_optional').selectpicker();		
 			$('.telaio').selectpicker();
-			
 			$('.step2-init').selectpicker();
-			
 			$('.step3-init').selectpicker();
-
 			$('.step4-init').selectpicker();
 			$('.step5-init').selectpicker();
 			$('.step6-init').selectpicker();
@@ -25,11 +33,8 @@
 			$('.step8-init').selectpicker();
 			$('.step9-init').selectpicker();
 			$('.step10-init').selectpicker();
-
-
-	var urlCall = "http://localhost/pvp/pvp/class/ajaxController.php";
-	var urlRedirect = "http://localhost/pvp/pvp/files";
-			
+		
+		
 		$( ".exec" ).on('click tap', function(event) {
 				
 			event.stopPropagation();
@@ -45,37 +50,20 @@
 				type: 'POST',
 				//async: false,
 			    dataType: 'text',
-			    
-			    statusCode: {
-			    403: function() {
-			      alert( "proibito!" );
-			    }
-			  },
-			    beforeSend: function(){
-			      //$("body").append('<div class="progres_bar_inv"><div class="loading"><div></div></div></div>');
-			    },
-			    
-			    complete: function(){
-			     // $(".progres_bar_inv").hide();
-			    },
-			       
+
 			    success: function(responseData, textStatus, jqXHR) {
 					
 			        if(responseData == 1)
 			        {
 				        location.href = urlRedirect+'/struttura.php';
-			        }
-					
-			
+			        }	
 			  }, 
 			      error: function (responseData, textStatus, errorThrown) {
 							        	console.log(textStatus +' : '+ errorThrown);
 				}
 				
 				});    //end ajax call
-			
-		
-				
+
 		});
 		
 		
@@ -127,20 +115,7 @@
 				type: 'POST',
 				//async: false,
 			    dataType: 'text',
-			    
-			    statusCode: {
-			    403: function() {
-			      alert( "proibito!" );
-			    }
-			  },
-			    beforeSend: function(){
-			      //$("body").append('<div class="progres_bar_inv"><div class="loading"><div></div></div></div>');
-			    },
-			    
-			    complete: function(){
-			     // $(".progres_bar_inv").hide();
-			    },
-			       
+       
 			    success: function(responseData, textStatus, jqXHR) {
 					
 			        $("#telaio").html(responseData);
@@ -171,20 +146,7 @@
 				type: 'POST',
 				//async: false,
 			    dataType: 'text',
-			    
-			    statusCode: {
-			    403: function() {
-			      alert( "proibito!" );
-			    }
-			  },
-			    beforeSend: function(){
-			      //$("body").append('<div class="progres_bar_inv"><div class="loading"><div></div></div></div>');
-			    },
-			    
-			    complete: function(){
-			     // $(".progres_bar_inv").hide();
-			    },
-			       
+
 			    success: function(responseData, textStatus, jqXHR) {
 					
 			        $("#dimensione").html(responseData);
@@ -209,20 +171,7 @@
 				type: 'POST',
 				//async: false,
 			    dataType: 'text',
-			    
-			    statusCode: {
-			    403: function() {
-			      alert( "proibito!" );
-			    }
-			  },
-			    beforeSend: function(){
-			      //$("body").append('<div class="progres_bar_inv"><div class="loading"><div></div></div></div>');
-			    },
-			    
-			    complete: function(){
-			     // $(".progres_bar_inv").hide();
-			    },
-			       
+
 			    success: function(responseData, textStatus, jqXHR) {
 					
 			        $("#tamponamento").html(responseData);
@@ -254,20 +203,7 @@
 				type: 'POST',
 				//async: false,
 			    dataType: 'text',
-			    
-			    statusCode: {
-			    403: function() {
-			      alert( "proibito!" );
-			    }
-			  },
-			    beforeSend: function(){
-			      //$("body").append('<div class="progres_bar_inv"><div class="loading"><div></div></div></div>');
-			    },
-			    
-			    complete: function(){
-			     // $(".progres_bar_inv").hide();
-			    },
-			       
+	       
 			    success: function(responseData, textStatus, jqXHR) {
 					
 					if (responseData == 'scelta_ok')
@@ -687,8 +623,6 @@
         $(document).on("change", "#select_step_7", function () {
 	        
 	        var valore = $(this).find("option:selected").val();
-
-			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
 								
 			$.ajax({
 				 url: urlCall,
@@ -716,8 +650,6 @@
          $(document).on("change", "#step_7_dimensione", function () {
 	        
 	        var valore = $(this).find("option:selected").val();
-
-			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
 								
 			$.ajax({
 				 url: urlCall,
@@ -751,8 +683,6 @@
 		 $(document).on("change", "#select_step_8", function () {
 	        
 	        var valore = $(this).find("option:selected").val();
-
-			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
 								
 			$.ajax({
 				 url: urlCall,
@@ -786,8 +716,6 @@
          $(document).on("change", "#select_step_9", function () {
 	        
 	        var valore = $(this).find("option:selected").val();
-
-			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
 								
 			$.ajax({
 				 url: urlCall,
@@ -814,8 +742,6 @@
         $(document).on("change", "#step_9_dimensione", function () {
 	        
 	        var valore = $(this).find("option:selected").val();
-
-			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
 								
 			$.ajax({
 				 url: urlCall,
@@ -846,9 +772,7 @@
         $(document).on("change", "#select_step_10", function () {
 	        
 	        var valore = $(this).find("option:selected").val();
-	        
-			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
-								
+	        								
 			$.ajax({
 				 url: urlCall,
 				 data: 'valore=' + encodeURIComponent(valore) + '&step=10',
@@ -873,13 +797,11 @@
         });  // end step10
         
         
+        
         $(document).on("change", "#step_10_optional", function () {
 	        
 	        var valore = $(this).find("option:selected").val();
-
-			if (valore =='si')
-			{
-								
+										
 			$.ajax({
 				 url: urlCall,
 				 data: 'valore=' + encodeURIComponent(valore) + '&step=10-insert',
@@ -903,14 +825,50 @@
 						
 			});    //end ajax call
 			
-			} else{
-				
-				location.href = urlRedirect+'/riepilogo.php';
-				
-			}
-        
+			        
         });  // end step9
 
+
+        
+        $(document).on("click", "#invia-preventivo", function () {
+	        
+	        var email = $("#email-cliente").val();
+	                
+			// DEVO INSERIRE UN RICHIAMO ALLA FUNZIONE DI AGGIORNAMENTO PREZZI
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'valore=' + encodeURIComponent(email) + '&step=invia-preventivo',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+				
+				if (responseData == 'msg_ok'){
+					
+				$("#msg-ok").hide();
+				$("#msg-ok").fadeIn(1200).delay(3000).fadeOut(1200); 
+
+				} else{
+				
+				$("#fail-email-msg").html(responseData);	
+				$("#msg-fail").hide();
+				$("#msg-fail").fadeIn(1200).delay(3000).fadeOut(1200); 
+					
+				}
+				    				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end invia-email
+        
+        
+        
 
         
         
@@ -923,6 +881,92 @@
 			history.back(1);
        
         });
+        
+        
+         $("#salta-opzione").click(function(event){
+	    
+	    	event.preventDefault();
+					
+		//	var url = currentLocation.split(urlRedirect);
+			
+			 var url = currentLocation.toString().split(urlRedirect);
+			 
+			 var cleanUrl = url.toString().replace('/','').replace(',','').replace('#','').replace('.php','');
+			 
+					 switch(cleanUrl)	{
+						 
+						 case "rivestimento":
+						 location.href = urlRedirect+'/membrana.php';
+						 break;
+						 
+						 case "membrana":
+						 location.href = urlRedirect+'/dotazioni.php';
+						 break;
+						 
+						 case "dotazioni":
+						 location.href = urlRedirect+'/filtrazione.php';
+						 break;
+						 
+						 case "filtrazione":
+						 location.href = urlRedirect+'/illuminazione.php';
+						 break;
+						 
+						 case "illuminazione":
+						 location.href = urlRedirect+'/bordo.php';
+						 break;
+						 
+						  case "bordo":
+						 location.href = urlRedirect+'/scalette.php';
+						 break;
+						 
+						 case "scalette":
+						 location.href = urlRedirect+'/pulizia.php';
+						 break;
+						 
+						 case "pulizia":
+						 location.href = urlRedirect+'/optional.php';
+						 break;
+						 
+						 case "optional":
+						 location.href = urlRedirect+'/riepilogo.php';
+						 break;
+						 						 
+						 default:
+						 alert('NON È POSSIBILE SALTARE QUESTO STEP');			 
+						 
+					 } // end switch
+ 
+         });
+	
+
+	
+	
+		$(document).on("click", "#nuova-configurazione", function () {
+	        
+								
+			$.ajax({
+				 url: urlCall,
+				 data: 'step=nuova-configurazione',
+				 type: 'POST',
+				//async: false,
+				dataType: 'text',
+					    
+				success: function(responseData, textStatus, jqXHR) {
+					
+					if(responseData == 'sessione_distrutta')	{
+						
+										location.href = 'http://localhost/pvp/pvp/';
+
+					}
+				    				
+				}, 
+				error: function (responseData, textStatus, errorThrown) {
+					console.log(textStatus +' : '+ errorThrown);
+				}
+						
+			});    //end ajax call
+        
+        });  // end invia-email
 	
 	
 			function calcolaTotale()	{

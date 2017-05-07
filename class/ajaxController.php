@@ -135,6 +135,14 @@ require_once 'main.pvp.php';
 					case 'login':
 					echo $pvp->loginCheck($valore);
 					break;
+					
+					case 'invia-preventivo':
+					echo $pvp->inviaPreventivo($valore);
+					break;
+					
+					case 'nuova-configurazione':
+					echo $pvp->nuovaConfigurazione();
+					break;
 					  
 				    default:
 				    echo 'nessun metodo valido è stato trovato per l\'opzione: ' . $valore . ' nello step: ' . $step;

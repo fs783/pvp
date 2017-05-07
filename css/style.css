@@ -20,6 +20,25 @@ body.fade-out {
 
 }
 
+.centered-end	{
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 50%;
+
+}
+
+.centered-riepilogo	{
+	margin: 0 auto;
+	text-align: center;
+}
+
+#msg-output	{
+	margin: 0 auto;
+	margin-top: 10px;
+	min-height: 150px;
+
+}
+
 .center-page	{
 	margin: 0 auto;
 	display: table;
