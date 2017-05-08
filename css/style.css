@@ -35,7 +35,7 @@ body.fade-out {
 #msg-output	{
 	margin: 0 auto;
 	margin-top: 10px;
-	min-height: 150px;
+/* 	min-height: 150px; */
 
 }
 
@@ -143,4 +143,32 @@ body.fade-out {
 	width: 30%;
 	display: inline-block;
 	margin-top: 25px;
+}
+
+
+/* ----------- iPad 1 and 2 ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: 60%;
+}
+
+}
+
+
+/* ----------- iPad 3 and 4 ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: 60%;
+}
+
 }

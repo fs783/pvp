@@ -1,0 +1,20 @@
+[08-May-2017 20:55:44 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[08-May-2017 22:27:02 UTC] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1592
+[08-May-2017 22:27:46 UTC] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1592
+[08-May-2017 22:28:36 UTC] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1592
+[08-May-2017 22:30:06 UTC] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1592
+[08-May-2017 22:34:17 UTC] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1592
+[08-May-2017 22:35:15 UTC] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1592
+[08-May-2017 22:35:26 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[08-May-2017 22:36:29 UTC] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1592
+[08-May-2017 22:38:02 UTC] PHP Fatal error:  Call to a member function fetch_object() on boolean in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1592
+[08-May-2017 22:49:01 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582
+[08-May-2017 22:49:39 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582
+[08-May-2017 22:49:39 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1584
+[08-May-2017 22:51:14 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582
+[08-May-2017 22:51:14 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1584
+[08-May-2017 22:51:20 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582
+[08-May-2017 22:51:20 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1584
+[08-May-2017 22:51:39 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582
+[08-May-2017 22:53:03 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582
+[08-May-2017 22:53:09 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582

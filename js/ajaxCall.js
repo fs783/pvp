@@ -6,8 +6,9 @@
 			
 		*********************************************/	
 		
-			var urlCall = "http://localhost/pvp/pvp/class/ajaxController.php";
-			var urlRedirect = "http://localhost/pvp/pvp/files";
+			var urlCall = "http://pools.digitalfollowers.net/class/ajaxController.php";
+			var urlRedirect = "http://pools.digitalfollowers.net/files";
+			var urlBase = "http://pools.digitalfollowers.net";
 			var currentLocation = window.location;
 		
 
@@ -70,6 +71,8 @@
 				$('#login').click(function(){
 				
 				codice = $("#codice-sap").val();
+				
+				console.log(codice);
 				
 					$.ajax({
 						 url: urlCall,
@@ -955,7 +958,7 @@
 					
 					if(responseData == 'sessione_distrutta')	{
 						
-										location.href = 'http://localhost/pvp/pvp/';
+										location.href = urlBase;
 
 					}
 				    				

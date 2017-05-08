@@ -17,10 +17,8 @@ $pvp->checkValidLogin(); // controllo se il cookie è presente
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
     	    <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-	<link rel="stylesheet" href="./css/animsition.min.css">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -29,6 +27,8 @@ $pvp->checkValidLogin(); // controllo se il cookie è presente
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+        <link href="css/style.css" rel="stylesheet">
+
   </head>
   <body style="background-color: #2c3336;color:#FFF;">
 	  <script>document.body.className += ' fade-out';</script>
@@ -64,8 +64,8 @@ $pvp->checkValidLogin(); // controllo se il cookie è presente
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/ajaxCall.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/ajaxCall.js"></script>
     
 	
 	<!-- Latest compiled and minified JavaScript -->

@@ -21,9 +21,9 @@ class PVP {
 		
 		protected $host = 'localhost'; 
 		
-		public $dbtable = 'POOLS-CONFIGURATORE';
+		public $dbtable = 'digitalfollowers_pools';
 		
-		public $url = 'http://localhost/pvp/pvp/files';
+		public $url = 'http://pools.digitalfollowers.net/files';
 		
 		//protected $dbuser = 'c0pools';
 		
@@ -38,9 +38,9 @@ class PVP {
 		
 		/*DEV*/
 		
-		protected $dbuser = 'root';
+		protected $dbuser = 'digitalfollowers_pools';
 		
-		protected $dbpasswd = 'root';
+		protected $dbpasswd = '7Ig~@cmJNRkp';
 		
 		// non includo nessuna tabella perché è variabile
 		
@@ -1558,6 +1558,7 @@ class PVP {
 							
 				$row = $q->num_rows;
 				
+				$scelta_primaria = addslashes($scelta_primaria);
 														
 				if ($row == 0)
 				{
@@ -1580,7 +1581,7 @@ class PVP {
 												
 				//SELEZIONO I TELAI
    				$q = $db->query("select DISTINCT scelta_secondaria from configuratore_$modello WHERE step='9' AND altezza ='$altezza' AND scelta_primaria ='$scelta_primaria' ");
-   				
+   				  				
 				
 				 echo '
    				<br />
@@ -1621,7 +1622,7 @@ class PVP {
 			$altezza = ($modello == 'sport' and $scelta_primaria == 'liner') ? $altezza : 'tutte';		
 					
 				// inserisco il prezzo				
-				$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$scelta_primaria' AND step = '9' AND altezza = '$altezza' AND scelta_secondaria='$scelta_secondaria') WHERE step='9' AND scelta_primaria = '$scelta_primaria' AND id_sessione='$token' ");
+				$q = $db->query("UPDATE $this->riepilogo SET prezzo=(SELECT prezzo FROM configuratore_$modello WHERE scelta_primaria='$scelta_primaria' AND step = '9' AND altezza = '$altezza' AND scelta_secondaria='$scelta_secondaria') WHERE step='9' AND scelta_primaria='$scelta_primaria' AND id_sessione='$token' ");
 				
 				return 'step_ok';
 														
@@ -1915,15 +1916,15 @@ class PVP {
 				//$mail->SMTPDebug = 3;                               // Enable verbose debug output
 				
 				$mail->isSMTP();                                      // Set mailer to use SMTP
-				$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+				$mail->Host = 'john.uswebhost.com';  // Specify main and backup SMTP servers
 				$mail->SMTPAuth = true;                               // Enable SMTP authentication
-				$mail->Username = 'fabio@digitalfollowers.com';                 // SMTP username
-				$mail->Password = 'persolino83';                           // SMTP password
+				$mail->Username = 'pvp@digitalfollowers.net';                 // SMTP username
+				$mail->Password = 'E~UeT#9BA?by';                           // SMTP password
 				$mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 				$mail->Port = 465;                                    // TCP port to connect to
 				$mail->CharSet = 'UTF-8';
 				
-				$mail->setFrom('no-reply@digitalfollowers.com', 'Preventivo PVP');
+				$mail->setFrom('pvp@digitalfollowers.net', 'Preventivo PVP');
 		
 				$mail->addAddress($email); //tassativamente ordini.web@pools.it
 											
@@ -1976,7 +1977,7 @@ class PVP {
 
 					if (isset($_COOKIE['checkLoginPVP'])) {
 					
-					header('Location: ../pvp/files/home.php');
+					header('Location: ../files/home.php');
 				
 					exit;
 							
