@@ -32,7 +32,6 @@ $pvp->checkValidLogin(); // controllo se il cookie è presente
   </head>
   <body style="background-color: #2c3336;color:#FFF;">
 	  <script>document.body.className += ' fade-out';</script>
-<!-- // <script>document.body.className += ' fade-out';</script>	   -->
 
 
 <div class="row centered">

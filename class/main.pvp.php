@@ -316,9 +316,8 @@ class PVP {
 				
 				if ($scelta == 'no')
 				{
-					
-					$q = $db->query("UPDATE $this->riepilogo SET scelta_opzionale='' WHERE step=1 AND id_sessione='$token'");	
-					
+
+					$q = $db->query("UPDATE $this->riepilogo SET scelta_opzionale='0.00' WHERE step='1' AND id_sessione='$token'");	
 					
 					$db->close();
 				
@@ -1996,7 +1995,7 @@ class PVP {
 				$token = $_SESSION["step1"]["token_sessione"];
 				
 				
-				$q = $db->query("SELECT scelta_opzionale FROM riepilogo_configuratore WHERE id_sessione='$token' ");
+				$q = $db->query("SELECT scelta_opzionale FROM riepilogo_configuratore WHERE id_sessione='$token' and step='1' ");
 				
 				
 				$obj = $q->fetch_object();

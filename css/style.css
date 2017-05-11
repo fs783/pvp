@@ -77,12 +77,12 @@ body.fade-out {
 }
 
 .body-illuminazione	{
-	background-color: #f7a435;
+	background-color: #b8a256;
 	color: #fff;
 }
 
 .body-bordo	{
-	background-color: #b8a256;
+	background-color: #f7a435;
 	color: #fff;
 }
 
@@ -143,6 +143,13 @@ body.fade-out {
 	width: 30%;
 	display: inline-block;
 	margin-top: 25px;
+}
+
+
+.bootstrap-select.btn-group.show-tick .dropdown-menu li a span.text {
+    margin-right: 34px;
+    white-space: normal;
+    padding-bottom: 5px;
 }
 
 

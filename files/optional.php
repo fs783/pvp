@@ -37,7 +37,7 @@ $pvp = new PVP();
 <div class="row ">
 	 <div class="col-xs-12 col-md-12 center-page">
 	 <h4>PrimaVeraPool</h4>
-	 <h3>PULIZIA</h3>
+	 <h3>ANGELEYE</h3>
 	 <br />
 
 	 <?php $pvp->step10(); ?>

@@ -18,3 +18,33 @@
 [08-May-2017 22:51:39 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582
 [08-May-2017 22:53:03 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582
 [08-May-2017 22:53:09 UTC] PHP Warning:  mysqli_real_escape_string() expects exactly 2 parameters, 1 given in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 1582
+[09-May-2017 07:41:17 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[09-May-2017 07:45:59 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[09-May-2017 10:04:10 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[09-May-2017 10:07:34 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[09-May-2017 10:07:45 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 10:23:13 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 10:45:43 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 10:46:15 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 10:52:42 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 10:52:58 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 10:54:04 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[09-May-2017 12:26:27 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:26:40 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:26:50 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:26:59 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:27:11 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:27:23 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:27:51 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:28:41 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:28:49 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:29:18 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[09-May-2017 12:30:29 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[09-May-2017 12:30:39 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[10-May-2017 08:38:39 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[10-May-2017 08:39:12 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[10-May-2017 08:41:08 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310
+[10-May-2017 08:42:21 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[10-May-2017 08:43:47 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[10-May-2017 08:45:51 UTC] PHP Notice:  Undefined index: valore in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/ajaxController.php on line 22
+[10-May-2017 08:46:25 UTC] PHP Notice:  Undefined index: telaio in /home/digitalfollowers/public_html/pools.digitalfollowers.net/class/main.pvp.php on line 310

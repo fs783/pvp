@@ -193,16 +193,14 @@
             
             $(document).on("change", "#select_step_1_tamponamento", function () {
 				
-			var dimensione_telaio = $(this).find("option:selected").val();
+			var tamponamento_fondo = $(this).find("option:selected").val();
 			
-			console.log(dimensione_telaio);
-			
-			if (dimensione_telaio == 'si'){
-			
+			console.log(tamponamento_fondo);
+						
 				
 			$.ajax({
 			    url: urlCall,
-			    data: 'valore=' + tamponamento + '&step=1-tamponamento',
+			    data: 'valore=' + tamponamento_fondo + '&step=1-tamponamento',
 				type: 'POST',
 				//async: false,
 			    dataType: 'text',
@@ -222,14 +220,6 @@
 				}
 				
 				});    //end ajax call				
-
-
-							
-			} else{
-
-			    location.href = urlRedirect+'/rivestimento.php';
-				
-			}
 		
 			});
 		
@@ -362,12 +352,14 @@
 			
 			calcolaTotale();
 			
-			if (valore == '2 skimmer + 2 bocchette + 1 scarico (ø 50)'){
+		
+			if (valore == '2 skimmer + 2 bocchette + 1 scarico ø 50 (2 con T) + troppo pieno'){
 				step = '4-extra';
 			} else{
 				step = '4';
 			}
 			
+					
 			$.ajax({
 				 url: urlCall,
 				 data: 'valore=' + encodeURIComponent(valore) + '&step=' +step,
